@@ -15,8 +15,8 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 app.use(cors({
-  origin: 'http://localhost:5173', // Allow only your frontend to talk to this API
-  credentials: true // Required if you plan to use cookies for login sessions later
+  origin: process.env.CLIENT_URL || 'http://localhost:5173', // Render will use CLIENT_URL, local uses 5173
+  credentials: true 
 }));
 app.use(express.json());
 
