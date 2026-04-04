@@ -1,0 +1,93 @@
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { MapContext } from '../../context/MapContext';
+import { calculateDistance } from '../../utils/distanceCalc';
+import { Loader2, Crown, User as UserIcon } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const LeaderboardDrawer = () => {
+  const { user } = useContext(AuthContext);
+  const { neighbors, loadingNeighbors } = useContext(MapContext);
+
+  return (
+    <div className="absolute right-4 top-24 bottom-24 w-80 z-[1000] glass-panel rounded-xl flex flex-col overflow-hidden hidden lg:flex shadow-2xl">
+      
+      {/* Header */}
+      <div className="p-4 border-b border-white/10 bg-black/40">
+        <h2 className="font-bold text-lg flex items-center gap-2">
+          🏆 Territory Standings
+        </h2>
+        <p className="text-xs text-gray-400 mt-1">Rivals in your current radius</p>
+      </div>
+
+      {/* List */}
+      <div className="flex-1 overflow-y-auto p-2 space-y-2 custom-scrollbar">
+        {loadingNeighbors ? (
+          <div className="flex justify-center items-center h-full text-gray-500">
+            <Loader2 className="animate-spin w-8 h-8" />
+          </div>
+        ) : neighbors.length === 0 ? (
+          <div className="text-center p-6 text-gray-500 text-sm">
+            No rivals found. You are completely alone here.
+          </div>
+        ) : (
+          neighbors.map((neighbor, index) => {
+            const isMe = neighbor.leetcodeUsername === user.leetcodeUsername;
+            const isKing = index === 0;
+
+            return (
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05 }}
+                key={neighbor._id}
+                className={`
+                  p-3 rounded-lg border transition-all hover:bg-white/5 cursor-pointer
+                  ${isMe ? 'border-leetcode-orange/50 bg-leetcode-orange/10' : 'border-white/5 bg-black/20'}
+                  ${isKing && !isMe ? 'border-yellow-500/50 bg-yellow-500/10' : ''}
+                `}
+              >
+                <div className="flex items-center gap-3">
+                  
+                  {/* Rank / Icon */}
+                  <div className="w-8 flex justify-center">
+                    {isKing ? (
+                      <Crown className="text-yellow-400 w-6 h-6" />
+                    ) : (
+                      <span className="text-gray-500 font-mono text-sm">#{index + 1}</span>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span className={`font-bold ${isMe ? 'text-leetcode-orange' : 'text-white'}`}>
+                        {neighbor.leetcodeUsername}
+                      </span>
+                      {isMe && <span className="text-[10px] bg-leetcode-orange text-white px-1.5 py-0.5 rounded">YOU</span>}
+                    </div>
+                    
+                    <div className="flex justify-between items-center mt-1">
+                      <div className="text-xs font-mono text-gray-400">
+                        Rank: {neighbor.leetcodeGlobalRank.toLocaleString()}
+                      </div>
+                      {!isMe && (
+                        <div className="text-[10px] text-neon-green/80">
+                          {calculateDistance(user.location, neighbor.location?.coordinates)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                </div>
+              </motion.div>
+            );
+          })
+        )}
+      </div>
+
+    </div>
+  );
+};
+
+export default LeaderboardDrawer;

@@ -1,0 +1,33 @@
+{
+  "data": {
+    "matchedUser": {
+      "username": "dishuyadav477",
+      "profile": {
+        "realName": "dishuyadav477",
+        "aboutMe": "LC-KING-962E17F4",
+        "userAvatar": "https://assets.leetcode.com/users/default_avatar.jpg",
+        "ranking": 5000001
+      },
+      "submitStats": {
+        "acSubmissionNum": [
+          {
+            "difficulty": "All",
+            "count": 3
+          },
+          {
+            "difficulty": "Easy",
+            "count": 3
+          },
+          {
+            "difficulty": "Medium",
+            "count": 0
+          },
+          {
+            "difficulty": "Hard",
+            "count": 0
+          }
+        ]
+      }
+    }
+  }
+}
