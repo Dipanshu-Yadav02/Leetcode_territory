@@ -85,16 +85,16 @@ const Verify = () => {
       <motion.div
         animate={status === 'error' ? { x: [-10, 10, -10, 10, 0] } : {}}
         transition={{ duration: 0.4 }}
-        className={`max-w-2xl w-full glass-panel rounded-xl p-8 transition-shadow duration-500 ${status === 'success' ? 'shadow-[0_0_50px_rgba(0,255,0,0.4)] border-neon-green' : ''}`}
+        className={`max-w-2xl w-full glass-panel rounded-xl p-4 sm:p-8 transition-shadow duration-500 ${status === 'success' ? 'shadow-[0_0_50px_rgba(0,255,0,0.4)] border-neon-green' : ''}`}
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold mb-2">The Handshake 🤝</h2>
           <p className="text-gray-400">Prove ownership of the <span className="text-leetcode-orange font-mono">{user.leetcodeUsername}</span> LeetCode account.</p>
         </div>
 
-        <div className="bg-black/50 p-6 rounded-lg mb-8 font-mono border border-white/5 relative group">
+        <div className="bg-black/50 p-4 sm:p-6 rounded-lg mb-8 font-mono border border-white/5 relative group">
           <div className="text-xs text-gray-500 mb-2 uppercase tracking-wider">Your Unique Token</div>
-          <div className="text-2xl text-neon-green tracking-widest">{user.verificationToken}</div>
+          <div className="text-xl sm:text-2xl text-neon-green tracking-widest break-all pr-12">{user.verificationToken}</div>
 
           <button
             onClick={handleCopy}

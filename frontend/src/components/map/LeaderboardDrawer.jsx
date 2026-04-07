@@ -1,19 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { MapContext } from '../../context/MapContext';
 import { calculateDistance } from '../../utils/distanceCalc';
-import { Loader2, Crown, User as UserIcon } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Loader2, Crown, Users, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const LeaderboardDrawer = () => {
   const { user } = useContext(AuthContext);
   const { neighbors, loadingNeighbors } = useContext(MapContext);
+  const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <div className="absolute right-4 top-24 bottom-24 w-80 z-[1000] glass-panel rounded-xl flex flex-col overflow-hidden hidden lg:flex shadow-2xl">
-      
+  const LeaderboardContent = (
+    <>
       {/* Header */}
-      <div className="p-4 border-b border-white/10 bg-black/40">
+      <div className="p-4 border-b border-white/10 bg-black/40 pr-12">
         <h2 className="font-bold text-lg flex items-center gap-2">
           🏆 Territory Standings
         </h2>
@@ -50,7 +50,7 @@ const LeaderboardDrawer = () => {
                 <div className="flex items-center gap-3">
                   
                   {/* Rank / Icon */}
-                  <div className="w-8 flex justify-center">
+                  <div className="w-8 flex justify-center shrink-0">
                     {isKing ? (
                       <Crown className="text-yellow-400 w-6 h-6" />
                     ) : (
@@ -59,12 +59,12 @@ const LeaderboardDrawer = () => {
                   </div>
 
                   {/* Info */}
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className={`font-bold ${isMe ? 'text-leetcode-orange' : 'text-white'}`}>
+                      <span className={`font-bold truncate ${isMe ? 'text-leetcode-orange' : 'text-white'}`}>
                         {neighbor.leetcodeUsername}
                       </span>
-                      {isMe && <span className="text-[10px] bg-leetcode-orange text-white px-1.5 py-0.5 rounded">YOU</span>}
+                      {isMe && <span className="text-[10px] bg-leetcode-orange text-white px-1.5 py-0.5 rounded shrink-0">YOU</span>}
                     </div>
                     
                     <div className="flex justify-between items-center mt-1">
@@ -85,8 +85,46 @@ const LeaderboardDrawer = () => {
           })
         )}
       </div>
+    </>
+  );
 
-    </div>
+  return (
+    <>
+      {/* Mobile Toggle Button */}
+      <button 
+        onClick={() => setIsOpen(true)}
+        className="lg:hidden absolute bottom-20 sm:bottom-24 right-4 z-[999] glass-panel p-3 rounded-full text-white shadow-xl hover:bg-white/10"
+      >
+        <Users className="w-6 h-6 text-leetcode-orange" />
+      </button>
+
+      {/* Desktop Drawer (always visible on lg) */}
+      <div className="hidden lg:flex absolute right-4 top-24 bottom-24 w-80 z-[1000] glass-panel rounded-xl flex-col overflow-hidden shadow-2xl">
+        {LeaderboardContent}
+      </div>
+
+      {/* Mobile Popup Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden absolute inset-x-4 top-24 bottom-32 z-[1000] glass-panel rounded-xl flex flex-col overflow-hidden shadow-2xl bg-leetcode-bg/95 backdrop-blur-xl"
+          >
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white z-10 bg-black/50 p-2 rounded-full"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            {LeaderboardContent}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

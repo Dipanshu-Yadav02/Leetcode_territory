@@ -40,7 +40,7 @@ const Navbar = () => {
       </div>
 
       {/* Right - Profile */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         <div className="text-right hidden sm:block">
           <div className="text-sm font-medium">{user?.leetcodeUsername}</div>
         </div>

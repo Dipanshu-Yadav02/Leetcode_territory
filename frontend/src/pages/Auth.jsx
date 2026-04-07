@@ -60,7 +60,7 @@ const Auth = () => {
       </div>
 
       {/* Right Screen: Interactive Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 relative">
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
