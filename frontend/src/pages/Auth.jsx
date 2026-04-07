@@ -37,7 +37,7 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex h-screen w-full bg-leetcode-bg overflow-hidden text-white">
+    <div className="flex h-[100dvh] w-full bg-leetcode-bg overflow-hidden text-white">
       {/* Left Screen: Mock 3D Globe / Branding */}
       <div className="hidden lg:flex w-1/2 relative bg-leetcode-surface flex-col items-center justify-center p-10 border-r border-white/5">
         <h1 className="text-4xl font-bold mb-4 z-10 flex gap-3 pb-8">

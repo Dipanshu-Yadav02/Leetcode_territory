@@ -7,7 +7,7 @@ import { MapProvider } from '../context/MapContext';
 const Dashboard = () => {
   return (
     <MapProvider>
-      <div className="h-screen w-full relative bg-leetcode-bg overflow-hidden">
+      <div className="h-[100dvh] w-full relative bg-leetcode-bg overflow-hidden">
         
         {/* Floating UI Elements */}
         <Navbar />

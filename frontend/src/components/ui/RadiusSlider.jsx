@@ -7,7 +7,7 @@ const RadiusSlider = () => {
   const marks = [1, 5, 10, 25];
 
   return (
-    <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-[1000] glass-panel p-2 sm:p-4 rounded-full flex items-center gap-2 sm:gap-4 w-11/12 max-w-md overflow-x-auto custom-scrollbar">
+    <div className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 z-[1000] glass-panel p-2 sm:p-4 rounded-full flex items-center gap-2 sm:gap-4 w-11/12 max-w-md overflow-x-auto custom-scrollbar">
       <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider font-bold shrink-0 pl-2">
         Radius
       </div>

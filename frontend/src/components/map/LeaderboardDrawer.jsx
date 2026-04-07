@@ -93,7 +93,7 @@ const LeaderboardDrawer = () => {
       {/* Mobile Toggle Button */}
       <button 
         onClick={() => setIsOpen(true)}
-        className="lg:hidden absolute bottom-20 sm:bottom-24 right-4 z-[999] glass-panel p-3 rounded-full text-white shadow-xl hover:bg-white/10"
+        className="lg:hidden absolute bottom-32 sm:bottom-32 right-4 z-[999] glass-panel p-3 rounded-full text-white shadow-xl hover:bg-white/10"
       >
         <Users className="w-6 h-6 text-leetcode-orange" />
       </button>
